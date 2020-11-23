@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid">
     <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="#">
-        <i class="fa fa-arrow-left"></i> Back to Device Lists
-      </a>
+      <router-link class="navbar-brand" to="/"
+        ><i class="fa fa-arrow-left"></i> Back to Device Lists</router-link
+      >
     </nav>
 
     <div class="container my-5">

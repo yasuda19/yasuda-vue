@@ -1,19 +1,12 @@
 <template>
   <div id="app">
-    <DeviceLists></DeviceLists>
-    <DeviceDetail></DeviceDetail>
+    <router-view />
   </div>
 </template>
 
 <script>
-import DeviceLists from "./pages/DeviceLists.vue";
-import DeviceDetail from "./pages/DeviceDetail.vue";
 export default {
   name: "App",
-  components: {
-    DeviceLists,
-    DeviceDetail,
-  },
 };
 </script>
 
