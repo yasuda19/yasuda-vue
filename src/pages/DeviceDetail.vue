@@ -7,15 +7,12 @@
     </nav>
 
     <div class="container my-5">
-      <h3>Acer - Aspire U</h3>
+      <h3>{{ device.DeviceName }}</h3>
       <div class="card">
         <div class="card-body">
           <div class="row">
             <div class="col">
-              <img
-                class="photo"
-                src="https://diviceimage.azureedge.net/devices/Acer/Aspire_U.png"
-              />
+              <img class="photo" :src="device.Photo" />
             </div>
           </div>
           <div class="row">
@@ -31,15 +28,15 @@
               <p>Screen Size :</p>
             </div>
             <div class="col text-left">
-              <p>1</p>
-              <p>1</p>
-              <p>Acer - Aspire U</p>
-              <p>All in one</p>
-              <p>1900</p>
-              <p>Intel Core i5-3210M (2.5 GHz)</p>
-              <p>8GB DDR3</p>
-              <p>1TB</p>
-              <p>15.6</p>
+              <p>{{ device.DeviceID }}</p>
+              <p>{{ device.ManufacturerID }}</p>
+              <p>{{ device.DeviceName }}</p>
+              <p>{{ device.DeviceType }}</p>
+              <p>{{ device.Price }}</p>
+              <p>{{ device.Processor }}</p>
+              <p>{{ device.Memory }}</p>
+              <p>{{ device.Storage }}</p>
+              <p>{{ device.ScreenSize }}</p>
             </div>
           </div>
         </div>
@@ -49,8 +46,30 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "DeviceDetail",
+  data: () => ({
+    device: {
+      DeviceID: 0,
+      ManufacturerID: 0,
+      DeviceName: "",
+      DeviceType: "",
+      Price: 0,
+      Processor: "",
+      Memory: "",
+      Storage: "",
+      ScreenSize: "",
+      Photo: "",
+    },
+  }),
+  async created() {
+    let id = this.$route.params.id;
+    const { data } = await axios.get(
+      `https://device-order.herokuapp.com/devices/${id}`
+    );
+    this.device = data;
+  },
 };
 </script>
 

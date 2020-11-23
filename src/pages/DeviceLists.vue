@@ -14,7 +14,7 @@
         </button>
       </div>
     </div>
-    <AddDevice></AddDevice>
+    <AddDevice :defaultId="lastDevices"></AddDevice>
     <table class="table table-sm">
       <thead>
         <tr>
@@ -27,26 +27,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th>1</th>
-          <td>1</td>
-          <td>Acer - Aspire U</td>
-          <td>All in One</td>
-          <td>1900</td>
+        <tr v-for="device in devices" :key="device.id">
+          <th>{{ device.DeviceID }}</th>
+          <td>{{ device.ManufacturerID }}</td>
+          <td>{{ device.DeviceName }}</td>
+          <td>{{ device.DeviceType }}</td>
+          <td>{{ device.Price }}</td>
           <th>
-            <router-link to="/detail/1"
-              ><i class="fa fa-file-o"></i
-            ></router-link>
-          </th>
-        </tr>
-        <tr>
-          <th>1</th>
-          <td>2</td>
-          <td>Acer - Aspire M</td>
-          <td>Ultrabook</td>
-          <td>700</td>
-          <th>
-            <router-link to="/detail/1"
+            <router-link :to="`/detail/${device.id}`"
               ><i class="fa fa-file-o"></i
             ></router-link>
           </th>
@@ -57,11 +45,26 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import AddDevice from "@/components/AddDevice";
 export default {
   name: "DeviceLists",
   components: {
     AddDevice,
+  },
+  computed: {
+    ...mapGetters({
+      lastDevices: "getLastDevice",
+      devices: "getDevices",
+    }),
+  },
+  created() {
+    this.getDataOfDevices();
+  },
+  methods: {
+    ...mapActions({
+      getDataOfDevices: "getDataOfDeviceLists",
+    }),
   },
 };
 </script>
